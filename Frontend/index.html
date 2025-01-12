@@ -3,109 +3,171 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plagiarism Detector</title>
-</head>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f9;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-    }
-
-    .container {
-        width: 50%;
-        background: #ffffff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        text-align: center;
-    }
-
-    h1 {
-        margin-bottom: 20px;
-    }
-
-    textarea {
-        width: 90%;
-        height: 100px;
-        margin-bottom: 20px;
-        padding: 10px;
-        border: 1px solid #cccccc;
-        border-radius: 5px;
-    }
-
-    input[type="file"] {
-        margin-bottom: 20px;
-        padding: 10px;
-        border: 1px solid #cccccc;
-        border-radius: 5px;
-        display: block;
-        width: 90%;
-        text-align: center;
-    }
-
-    button {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-
-    button:hover {
-        background-color: #0056b3;
-    }
-
-    .result {
-        margin-top: 20px;
-        padding: 10px;
-        border-radius: 5px;
-        background-color: #e9ecef;
-    }
-
-</style>
-<body>
-    <div class="container">
-        <h1>Plagiarism Detector</h1>
-        <form id="plagiarismForm" action="/detect" method="post" enctype="multipart/form-data">
-            <textarea id="text1" name="text" placeholder="Enter text here..." required></textarea>
-
-            <input type="file" name="image" id="imageInput" accept="image/*" onchange="extractTextFromImage()" />
-
-            <button type="submit">Check for Plagiarism</button>
-        </form>
-        
-        <div class="result">Plagiarism Detected</div>
-    </div>
-
+    <title>Plagiarism Checker</title>
+    <link rel="stylesheet" href="style.css">
     <script>
-        async function extractTextFromImage() {
-            const imageInput = document.getElementById('imageInput');
-            const formData = new FormData();
-            formData.append("image", imageInput.files[0]);
+        // Function to handle scan plagiarism action
+        function scanPlagiarism() {
+            // You can replace this with actual plagiarism checking functionality
+            alert("Scanning for plagiarism... (this is a simulation)");
+        }
 
-            try {
-                const response = await fetch('/extract-text', {
-                    method: 'POST',
-                    body: formData
-                });
-
-                const data = await response.json();
-                if (data.success) {
-                    // Insert the extracted text into the textarea
-                    document.getElementById('text1').value = data.text;
-                } else {
-                    alert('Failed to extract text from image');
-                }
-            } catch (error) {
-                console.error('Error extracting text from image:', error);
+        // Function to handle file upload action
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                alert(`File ${file.name} selected for upload.`);
+                // Here you can process the uploaded file (e.g., send it to the server)
             }
         }
     </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Plagiarism Checker</h1>
+        
+        <p class="description">
+            Ensure every word is your own with Grammarly's AI-powered plagiarism checker, which uses advanced 
+            AI to detect plagiarism in your text and check for other writing issues.
+        </p>
+
+        <div class="checker-container">
+            <div class="input-section">
+                <textarea placeholder="Enter text or upload file to check for plagiarism and writing errors."></textarea>
+                <div class="button-group">
+                    <button class="scan-btn" onclick="scanPlagiarism()">Scan for plagiarism</button>
+                    <label class="upload-btn">
+                        <span class="upload-icon">↑</span> Upload a file
+                        <input type="file" style="display: none;" onchange="handleFileUpload(event)">
+                    </label>
+                    <span class="word-count">0/10000</span>
+                </div>
+            </div>
+
+            <div class="instructions">
+                <div class="get-started">
+                    <h2>Let's get started.</h2>
+                    <div class="steps">
+                        <p><strong>Step 1:</strong> Add your text or upload a file.</p>
+                        <p><strong>Step 2:</strong> Click to scan for plagiarism.</p>
+                        <p><strong>Step 3:</strong> Review the results for instances of potential plagiarism, plus additional writing issues.</p>
+                    </div>
+                    <button class="get-grammarly">Get Grammarly</button>
+                    <p class="login-text">Already have an account? <a href="#">Log in</a></p>
+                </div>
+            </div>
+        </div>
+
+        <p class="subheading">To be specific, Plagiarism checking or content's similarity detection is a process of identifying the occurrence of plagiarism or copyright infringement within a work of content for writer, teacher, student blogger, webmaster, or any document.</p>
+
+        <div class="container">
+            <h1>Plagiarism Checker</h1>
+    
+            <h2 class="what-we-offer">What we offer!</h2>
+    
+            <div class="features-grid">
+                <div class="feature-section">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <img src="multiplefile.jpg'" alt="Multiple File Formats">
+                        </div>
+                        <h3>Multiple File Formats</h3>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Use multiple ways of uploading text.</li>
+                        <li>Simple copy pasting in the text area.</li>
+                        <li>Upload through device or cloud storage.</li>
+                        <li>Supports 7 formats of document.</li>
+                        <li>No limitation of document formats.</li>
+                        <li>.tex, .txt, .doc, .docx, .odt, .pdf, and .rtf</li>
+                    </ul>
+                </div>
+    
+                <div class="feature-section">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <img src="multiplefile.jpg" alt="Results in Percentage">
+                        </div>
+                        <h3>Results in Percentage</h3>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Provides absolute comfort to users.</li>
+                        <li>Unique content ratio in percentage.</li>
+                        <li>Clarifies plagiarized resources in numbers.</li>
+                        <li>Most accurate plagiarism checker ratio.</li>
+                        <li>Click "Remove Plagiarism" button.</li>
+                        <li>Best matching detection.</li>
+                    </ul>
+                </div>
+    
+                <div class="feature-section">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <img src="privacy_guaranteed.jpg" alt="Privacy Guaranteed">
+                        </div>
+                        <h3>Privacy Guaranteed</h3>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Plagiarism checker with 100% privacy.</li>
+                        <li>Doesn't save any uploaded material.</li>
+                        <li>Trashes content after checking plagiarism.</li>
+                        <li>No risks of data leakage.</li>
+                        <li>Protects privacy and security of content.</li>
+                        <li>Reveals the best results.</li>
+                    </ul>
+                </div>
+    
+                <div class="feature-section">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <img src="ai_technology.jpg" alt="AI-Based Technology">
+                        </div>
+                        <h3>AI-Based Technology</h3>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Tool is Developed using AI technology.</li>
+                        <li>Not only picks the exactly matched content.</li>
+                        <li>Detects minor trace of plagiarism.</li>
+                        <li>Paraphrased content can also be identified.</li>
+                        <li>Best plagiarism checker to catch the duplication.</li>
+                        <li>Compares the content with millions of sources.</li>
+                    </ul>
+                </div>
+    
+                <div class="feature-section">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <img src="multilingual_support.jpg" alt="Multilingual Support">
+                        </div>
+                        <h3>Multilingual Support</h3>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Worldwide usage with multilingual users.</li>
+                        <li>Detects plagiarism in various languages.</li>
+                        <li>Operational in up to 7 different languages.</li>
+                        <li>Supports Spanish, Russian, Portuguese,</li>
+                        <li>Dutch, Indonesian, Italian, and Arabic.</li>
+                        <li>Checks plagiarism, webpages, research papers etc.</li>
+                    </ul>
+                </div>
+    
+                <div class="feature-section">
+                    <div class="feature-header">
+                        <div class="feature-icon">
+                            <img src="writing_enhancements.jpg" alt="Writing Enhancements">
+                        </div>
+                        <h3>Writing Enhancements</h3>
+                    </div>
+                    <ul class="feature-list">
+                        <li>Embedded with other writing enhancements.</li>
+                        <li>Remove the duplicate article.</li>
+                        <li>Removes plagiarism instantly.</li>
+                        <li>Highlights grammar errors.</li>
+                        <li>Produces quality content that is ready to publish.</li>
+                        <li>Traces plagiarism from every possible source.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 </body>
 </html>
