@@ -223,6 +223,87 @@
             .steps-content {
                 grid-template-columns: 1fr;
             }
+    
+        }
+
+
+        /* Add these new styles after your existing styles */
+        .testimonials-section {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e8f0fe 100%);
+            padding: 4rem 2rem;
+        }
+
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonials-container h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--text-color);
+            margin-bottom: 3rem;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .user-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-right: 1rem;
+            object-fit: cover;
+        }
+
+        .user-details {
+            flex: 1;
+        }
+
+        .user-details h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin: 0;
+        }
+
+        .user-details p {
+            font-size: 0.9rem;
+            color: #64748B;
+            margin: 0;
+        }
+
+        .testimonial-text {
+            color: #1E293B;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -277,6 +358,81 @@
             </div>
         </div>
     </section>
+    <section class="testimonials-section">
+        <div class="testimonials-container">
+            <h2>See Why Users Prefer Our Plagiarism Checker</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="user-info">
+                        <img src="../static//prabat.jpeg" alt="User" class="user-avatar">
+                        <div class="user-details">
+                            <h3>Prabat Acharya</h3>
+                            <p>MBA Student</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"I love how this tool highlights specific sources. It really helps me understand what to change in my text to keep it unique!"</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="user-info">
+                        <img src="../static/prabin.jpeg" alt="User" class="user-avatar">
+                        <div class="user-details">
+                            <h3>Prabin Kumar Bogati</h3>
+                            <p>MBBS Student</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"This tool is fantastic for pinpointing the sources. It makes it so much easier to know what to adjust in my writing for originality!"</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="user-info">
+                        <img src="../static/subodh.jpeg" alt="User" class="user-avatar">
+                        <div class="user-details">
+                            <h3>Subodh Badal</h3>
+                            <p>Engineer</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"The way this tool highlights sources is amazing! It helps me see exactly where to tweak my text to avoid duplication."</p>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="user-info">
+                        <img src="../static/mohit.jpeg" alt="User" class="user-avatar">
+                        <div class="user-details">
+                            <h3>Mohit Adhikari</h3>
+                            <p>MBA Student</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"I love how this tool shows me the source material. It simplifies the process of adjusting my work to ensure it's unique."</p>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="user-info">
+                        <img src="../static/badda.jpeg" alt="User" class="user-avatar">
+                        <div class="user-details">
+                            <h3>Shrawan Gorathoki</h3>
+                            <p>Law Student</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"This tool’s ability to pinpoint sources is great. It allows me to focus on the parts of my text that need to be reworded."</p>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="user-info">
+                        <img src="../static/deep.jpeg" alt="User" class="user-avatar">
+                        <div class="user-details">
+                            <h3>Deep Khanal</h3>
+                            <p>Business Student</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-text">"It's so helpful how this tool marks specific sources. It makes altering my content to maintain originality much easier!"</p>
+                </div>
+                
+                
+            </div>
+        </div>
+    </section>
+
 
     <script>
         const textarea = document.getElementById("inputText");
@@ -285,6 +441,8 @@
         const loadingDiv = document.getElementById("loading");
         const imageUpload = document.getElementById("imageUpload");
         const uploadImageBtn = document.getElementById("uploadImageBtn");
+
+        
 
         checkBtn.addEventListener("click", async () => {
             const text = textarea.value.trim();
