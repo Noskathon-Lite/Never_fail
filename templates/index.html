@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plagiarism Checker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            width: 90%;
+            background: #ffffff;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            padding: 20px 30px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2rem;
+            color: #333;
+        }
+        p {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            font-size: 1rem;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: none;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: linear-gradient(90deg, #4caf50, #2e7d32);
+            color: white;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #66bb6a, #388e3c);
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: #333;
+        }
+        .footer {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Plagiarism Checker</h1>
+        <p>Paste your text below to check for plagiarism</p>
+        <textarea id="inputText" placeholder="Enter text here..."></textarea>
+        <button id="checkBtn">Check Plagiarism</button>
+        <div id="result" class="result" style="display: none;"></div>
+    </div>
+    <div class="footer">
+        © 2025 Plagiarism Checker. All Rights Reserved.
+    </div>
+    <script>
+        const checkBtn = document.getElementById("checkBtn");
+        const resultDiv = document.getElementById("result");
+
+        checkBtn.addEventListener("click", async () => {
+            const inputText = document.getElementById("inputText").value.trim();
+
+            if (!inputText) {
+                alert("Please enter some text to check for plagiarism.");
+                return;
+            }
+
+            resultDiv.style.display = "none";
+            resultDiv.innerHTML = "";
+
+            try {
+                const response = await fetch('/check', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text: inputText })
+                });
+
+                const data = await response.json();
+                if (response.ok) {
+                    resultDiv.style.display = "block";
+                    resultDiv.innerHTML = `<strong>Plagiarism detected: ${data.similarity.toFixed(2)}%</strong>`;
+                } else {
+                    alert(data.error || "An error occurred.");
+                }
+            } catch (error) {
+                alert("Failed to connect to the server.");
+            }
+        });
+    </script>
+</body>
+</html>
