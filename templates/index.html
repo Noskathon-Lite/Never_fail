@@ -3,115 +3,354 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plagiarism Checker</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <title>Advanced Plagiarism Checker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f4f4f9;
+        :root {
+            --primary-color: #15C39A;
+            --secondary-color: #0E8F6F;
+            --text-color: #1E293B;
+            --light-gray: #F8FAFC;
+        }
+
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: var(--text-color);
+        }
+
+        .navbar {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            justify-content: center;
-            min-height: 100vh;
+            padding: 1rem 2rem;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
-        .container {
-            max-width: 800px;
-            width: 90%;
-            background: #ffffff;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            padding: 20px 30px;
-            text-align: center;
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: rgb(90, 110, 110);
+            text-align: left;
+            flex: 1;
         }
-        h1 {
+
+        .navbar .logo span {
             font-size: 2rem;
-            color: #333;
+            color: var(--primary-color);
         }
-        p {
-            color: #666;
+
+        .navbar .title {
+            font-size: 1.5rem;
+            color: rgb(140, 152, 152);
+            font-weight: 600;
+            flex: 2;
+            text-align: center;
+            margin-left: -550px;  /* Adjust this value to move it slightly left */
+        }
+
+        .navbar .login {
+            margin-left: auto;
             font-size: 1rem;
-            margin-bottom: 20px;
+            color: var(--primary-color);
+            cursor: pointer;
+            padding: 10px 15px;
+            border: 2px solid var(--primary-color);
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
+
+        .navbar .login:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .main-content {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
         textarea {
             width: 100%;
-            height: 150px;
+            height: 300px;
+            padding: 1rem;
             font-size: 1rem;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            resize: none;
+            border: 1px solid #E2E8F0;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            resize: vertical;
         }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(21, 195, 154, 0.1);
+        }
+
         button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: linear-gradient(90deg, #4caf50, #2e7d32);
+            width: 48%;
+            padding: 1rem;
+            background: var(--primary-color);
             color: white;
-            font-size: 1rem;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
+            font-size: 1rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background 0.3s ease;
         }
+
         button:hover {
-            background: linear-gradient(90deg, #66bb6a, #388e3c);
+            background: var(--secondary-color);
         }
+
+        .upload-btn {
+            width: 48%;
+            padding: 1rem;
+            background: #E2E8F0;
+            color: #555;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .upload-btn:hover {
+            background: #D1D9DF;
+        }
+
         .result {
-            margin-top: 20px;
+            margin-top: 1rem;
+            text-align: center;
             font-size: 1.2rem;
-            color: #333;
         }
-        .footer {
-            margin-top: 20px;
-            font-size: 0.9rem;
-            color: #aaa;
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .steps-section {
+            background-color: var(--light-gray);
+            padding: 4rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .steps-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .steps-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .steps-header h2 {
+            font-size: 2.5rem;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        .steps-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .step-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .step-number {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .step-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .step-description {
+            color: #64748B;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .steps-content {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Plagiarism Checker</h1>
-        <p>Paste your text below to check for plagiarism</p>
-        <textarea id="inputText" placeholder="Enter text here..."></textarea>
-        <button id="checkBtn">Check Plagiarism</button>
-        <div id="result" class="result" style="display: none;"></div>
-    </div>
-    <div class="footer">
-        © 2025 Plagiarism Checker. All Rights Reserved.
-    </div>
+    <nav class="navbar">
+        <div class="logo">
+            <span>NF</span>
+        </div>
+        <div class="title">Plagiarism Checker</div>
+        <div class="login">Login</div>
+    </nav>
+
+    <main class="main-content">
+        <div class="hero">
+            <h1>Check Your Content</h1>
+            <p>Paste your text below to check for plagiarism.</p>
+        </div>
+        <textarea id="inputText" placeholder="Paste your text here..."></textarea>
+        <div>
+            <button id="checkBtn">Check for Plagiarism</button>
+            <button class="upload-btn" id="uploadImageBtn">Upload Image</button>
+            <input type="file" id="imageUpload" style="display:none;" accept="image/*" />
+        </div>
+        <div class="loading" id="loading">
+            <div class="loading-spinner"></div>
+            <p>Analyzing your text...</p>
+        </div>
+        <div class="result" id="result"></div>
+    </main>
+
+    <section class="steps-section">
+        <div class="steps-container">
+            <div class="steps-header">
+                <h2>Let's get started.</h2>
+            </div>
+            <div class="steps-content">
+                <div class="step-card">
+                    <div class="step-number">Step 1</div>
+                    <h3 class="step-title">Add your text or upload a file.</h3>
+                    <p class="step-description">Simply paste your text into the editor above or upload your document to begin the plagiarism check.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">Step 2</div>
+                    <h3 class="step-title">Click to scan for plagiarism.</h3>
+                    <p class="step-description">Our advanced AI will analyze your text against millions of sources to detect any potential matches.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">Step 3</div>
+                    <h3 class="step-title">Review the results.</h3>
+                    <p class="step-description">Get detailed results showing potential instances of plagiarism and additional writing suggestions.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <script>
+        const textarea = document.getElementById("inputText");
         const checkBtn = document.getElementById("checkBtn");
         const resultDiv = document.getElementById("result");
+        const loadingDiv = document.getElementById("loading");
+        const imageUpload = document.getElementById("imageUpload");
+        const uploadImageBtn = document.getElementById("uploadImageBtn");
 
         checkBtn.addEventListener("click", async () => {
-            const inputText = document.getElementById("inputText").value.trim();
-
-            if (!inputText) {
+            const text = textarea.value.trim();
+            if (!text) {
                 alert("Please enter some text to check for plagiarism.");
                 return;
             }
 
-            resultDiv.style.display = "none";
-            resultDiv.innerHTML = "";
+            resultDiv.textContent = "";
+            loadingDiv.style.display = "block";
 
             try {
                 const response = await fetch('/check', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ text: inputText })
+                    body: JSON.stringify({ text }),
                 });
 
                 const data = await response.json();
+                loadingDiv.style.display = "none";
+
                 if (response.ok) {
-                    resultDiv.style.display = "block";
-                    resultDiv.innerHTML = `<strong>Plagiarism detected: ${data.similarity.toFixed(2)}%</strong>`;
+                    resultDiv.textContent = `Plagiarism Detected: ${data.similarity.toFixed(2)}%`;
                 } else {
-                    alert(data.error || "An error occurred.");
+                    resultDiv.textContent = data.error || "An error occurred.";
                 }
             } catch (error) {
-                alert("Failed to connect to the server.");
+                loadingDiv.style.display = "none";
+                resultDiv.textContent = "Failed to connect to the server. Please ensure the backend is running.";
+            }
+        });
+
+        uploadImageBtn.addEventListener("click", () => {
+            imageUpload.click();
+        });
+
+        imageUpload.addEventListener("change", async () => {
+            const file = imageUpload.files[0];
+            if (!file) {
+                alert("Please upload an image.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append("image", file);
+
+            loadingDiv.style.display = "block";
+            resultDiv.textContent = "";
+
+            try {
+                const response = await fetch("/extract-text", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                const data = await response.json();
+                loadingDiv.style.display = "none";
+
+                if (response.ok) {
+                    textarea.value = data.text || "No text detected in the image.";
+                } else {
+                    resultDiv.textContent = data.error || "An error occurred while extracting text.";
+                }
+            } catch (error) {
+                loadingDiv.style.display = "none";
+                resultDiv.textContent = "Failed to connect to the server. Please ensure the backend is running.";
             }
         });
     </script>
